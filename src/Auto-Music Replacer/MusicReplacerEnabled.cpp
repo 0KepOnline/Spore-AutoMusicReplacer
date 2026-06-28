@@ -22,6 +22,11 @@ void MusicReplacerEnabled::ParseLine(const ArgScript::Line& line)
 {
 	// This method is called when your cheat is invoked.
 	// Put your cheat code here.
+	if (Simulator::GetGameModeID() == GameModeIDs::kScenarioMode && ScenarioMode.GetMode() == App::cScenarioMode::Mode::PlayMode) {
+		App::ConsolePrintF("You cannot use this cheat in adventure play mode.");
+		return;
+	}
+
 	auto args = line.GetArguments(1);
 	active = mpFormatParser->ParseBool(args[0]);
 	if (active) {
