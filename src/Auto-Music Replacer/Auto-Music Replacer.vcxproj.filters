@@ -22,6 +22,15 @@
     <ClInclude Include="globals.h">
       <Filter>Auto-Music Replacer</Filter>
     </ClInclude>
+    <ClInclude Include="AddReplacerMusic.h">
+      <Filter>Auto-Music Replacer</Filter>
+    </ClInclude>
+    <ClInclude Include="RemoveReplacerMusic.h">
+      <Filter>Auto-Music Replacer</Filter>
+    </ClInclude>
+    <ClInclude Include="MusicReplacerEnabled.h">
+      <Filter>Auto-Music Replacer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -29,6 +38,15 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="AddReplacerMusic.cpp">
+      <Filter>Auto-Music Replacer</Filter>
+    </ClCompile>
+    <ClCompile Include="RemoveReplacerMusic.cpp">
+      <Filter>Auto-Music Replacer</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicReplacerEnabled.cpp">
+      <Filter>Auto-Music Replacer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

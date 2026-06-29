@@ -1,9 +1,10 @@
 #include "stdafx.h"
+#include "MusicReplacerEnabled.h"
 #include "globals.h"
 #include "stdio.h"
 #include "shlobj.h"
 #include <string>
-#include "MusicReplacerEnabled.h"
+
 
 MusicReplacerEnabled::MusicReplacerEnabled()
 {

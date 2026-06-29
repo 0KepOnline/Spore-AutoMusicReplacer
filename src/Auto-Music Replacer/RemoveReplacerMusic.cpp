@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "globals.h"
 #include "RemoveReplacerMusic.h"
+#include "globals.h"
 #include "MicroStorageAPI.h"
 
 RemoveReplacerMusic::RemoveReplacerMusic()

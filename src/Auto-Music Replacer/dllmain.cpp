@@ -1,13 +1,16 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
-#include "globals.h"
-#include <MicroStorageAPI.h>
 #include "MusicReplacerEnabled.h"
 #include "AddReplacerMusic.h"
 #include "RemoveReplacerMusic.h"
+#include "globals.h"
+#include <MicroStorageAPI.h>
+
 
 MicroStorageClient* MSclient = nullptr;
 eastl::map<uint32_t, uint32_t> alternateMusicIDs; // first uint32 is for act index, second for actual music ID
+
+bool active = true;
 
 void Initialize()
 {

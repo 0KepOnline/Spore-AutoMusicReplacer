@@ -1,11 +1,10 @@
 #pragma once
 
 #include <Spore\BasicIncludes.h>
-#include "globals.h"
 
 class AddReplacerMusic 
 	: public ArgScript::ICommand,
-	public Sporepedia::IShopperListener
+	  Sporepedia::IShopperListener
 {
 public:
 	AddReplacerMusic();

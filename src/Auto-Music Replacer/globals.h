@@ -4,4 +4,4 @@ class MicroStorageClient;
 
 extern MicroStorageClient* MSclient;
 
-bool active = true;
+extern bool active;
