@@ -6,6 +6,11 @@
 #include "globals.h"
 #include <MicroStorageAPI.h>
 
+class cScenarioEditModeScriptUI {};
+class ActEditorBar {};
+
+UILayoutPtr layoutBehaviour = nullptr;
+UILayoutPtr layoutActBar = nullptr;
 
 MicroStorageClient* MSclient = nullptr;
 AddReplacerMusic* addReplacerCheat = nullptr;
@@ -31,6 +36,43 @@ void Initialize()
 	CheatManager.AddCheat("addreplacermusic", addReplacerCheat);
 	CheatManager.AddCheat("removereplacermusic", removeReplacerCheat);
 }
+
+member_detour(cScenarioEditModeScriptUI_ShowBehaviorEditUI, cScenarioEditModeScriptUI, void())
+{
+	void detoured() {
+		original_function(this);
+
+		uintptr_t thisPtr = (uintptr_t)this;
+		cScenarioDataPtr scenarioData = ScenarioMode.mpData;
+		if (!scenarioData)
+			return;
+
+		uint32_t index = *(uint32_t*)(thisPtr + 0x20);
+		Simulator::cScenarioClass* scenarioClass = scenarioData->GetClass(index);
+		if (!scenarioClass
+			|| Simulator::cScenarioClass::GetObjectType(*(ResourceKey*)scenarioClass) !=
+			Simulator::ScenarioObjectType::ScenarioFixedObjectAudio)
+			return;
+
+		UTFWin::IWindow* behaviorEditUIWin = *(UTFWin::IWindow**)(thisPtr + 0x18);
+		if (!behaviorEditUIWin)
+			return;
+
+	}
+};
+
+member_detour(ActEditorBar_load, ActEditorBar, uint32_t* (int*)) {
+	uint32_t* detoured(int* p1) {
+		uint32_t* r = original_function(this, p1);
+		return r;
+	}
+};
+
+member_detour(cScenarioData_UpdateEditorAct, Simulator::cScenarioData, void(int, Simulator::cScenarioMarker*, int)) {
+	void detoured(int i1, Simulator::cScenarioMarker * markers, int i2) {
+		original_function(this, i1, markers, i2);
+	}
+};
 
 member_detour(cScenarioPlayMode_Initialize_dtr, Simulator::cScenarioPlayMode, void()) {
 
@@ -90,6 +132,7 @@ static_detour(AudioSystem_PlayActMusic_dtr, void(uint32_t, Audio::AudioTrack)) {
 	}
 };
 
+
 void Dispose()
 {
 	// This method is called when the game is closing
@@ -105,6 +148,8 @@ void Dispose()
 		delete removeReplacerCheat;
 		removeReplacerCheat = nullptr;
 	}
+	layoutBehaviour = nullptr;
+	layoutActBar = nullptr;
 }
 
 void AttachDetours()
@@ -116,6 +161,9 @@ void AttachDetours()
 	cScenarioPlayMode_SetCurrentAct_dtr::attach(GetAddress(Simulator::cScenarioPlayMode, SetCurrentAct));
 	AudioSystem_PlayActMusic_dtr::attach(Address(ModAPI::ChooseAddress(0x657050,0x657200)));
 
+	cScenarioEditModeScriptUI_ShowBehaviorEditUI::attach(Address(ModAPI::ChooseAddress(0xeb3030, 0xedee10)));
+	ActEditorBar_load::attach(Address(ModAPI::ChooseAddress(0xedbbd0,0xedb9c0)));
+	cScenarioData_UpdateEditorAct::attach(Address(ModAPI::ChooseAddress(0xf462a0,0xf462b0)));
 }
 
 

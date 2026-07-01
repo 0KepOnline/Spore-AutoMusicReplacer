@@ -10,6 +10,9 @@ extern AddReplacerMusic* addReplacerCheat;
 
 extern RemoveReplacerMusic* removeReplacerCheat;
 
+extern UILayoutPtr layoutBehaviour;
+extern UILayoutPtr layoutActBar;
+
 extern bool active;
 
 #pragma region constants

@@ -3,8 +3,10 @@
 #include <Spore\BasicIncludes.h>
 
 class AddReplacerMusic 
-	: public ArgScript::ICommand,
-	  Sporepedia::IShopperListener
+	: public ArgScript::ICommand
+	, public Sporepedia::IShopperListener
+	, public UTFWin::IWinProc
+	, public DefaultRefCounted
 {
 public:
 #pragma region constants
@@ -14,9 +16,16 @@ public:
 	AddReplacerMusic();
 	~AddReplacerMusic();
 
-	// Called when the cheat is invoked
+	// Cheat + Sporepedia request class overrides
 	void ParseLine(const ArgScript::Line& line) override;
 	void OnShopperAccept(const ResourceKey& selection) override;
+	
+	// IWinProc overrides
+	int AddRef() override;
+	int Release() override;
+	void* Cast(uint32_t type) const override;
+	int GetEventFlags() const override;
+	bool HandleUIMessage(UTFWin::IWindow* pWindow, const UTFWin::Message& message) override;
 	
 	// Returns a string containing the description. If mode != DescriptionMode::Basic, return a more elaborated description
 	const char* GetDescription(ArgScript::DescriptionMode mode) const override;

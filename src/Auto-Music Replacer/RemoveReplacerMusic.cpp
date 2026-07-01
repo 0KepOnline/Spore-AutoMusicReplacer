@@ -36,6 +36,24 @@ void RemoveReplacerMusic::ParseLine(const ArgScript::Line& line)
 
 }
 
+int RemoveReplacerMusic::AddRef() { return DefaultRefCounted::AddRef(); }
+
+int RemoveReplacerMusic::Release() { return DefaultRefCounted::Release(); }
+
+int RemoveReplacerMusic::GetEventFlags() const { return UTFWin::kEventFlagBasicInput; }
+
+void* RemoveReplacerMusic::Cast(uint32_t type) const {
+	CLASS_CAST(RemoveReplacerMusic);
+
+	CLASS_CAST(Object);
+	CLASS_CAST(IWinProc);
+	return nullptr;
+}
+
+bool RemoveReplacerMusic::HandleUIMessage(UTFWin::IWindow* pWindow, const UTFWin::Message& message) {
+
+}
+
 const char* RemoveReplacerMusic::GetDescription(ArgScript::DescriptionMode mode) const
 {
 	if (mode == ArgScript::DescriptionMode::Basic) {

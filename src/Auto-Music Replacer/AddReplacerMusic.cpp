@@ -29,6 +29,24 @@ void AddReplacerMusic::ParseLine(const ArgScript::Line& line)
 	}
 }
 
+int AddReplacerMusic::AddRef() { return DefaultRefCounted::AddRef(); }
+
+int AddReplacerMusic::Release() { return DefaultRefCounted::Release(); }
+
+int AddReplacerMusic::GetEventFlags() const { return UTFWin::kEventFlagBasicInput; }
+
+void* AddReplacerMusic::Cast(uint32_t type) const {
+	CLASS_CAST(AddReplacerMusic);
+
+	CLASS_CAST(Object);
+	CLASS_CAST(IWinProc);
+	return nullptr;
+}
+
+bool AddReplacerMusic::HandleUIMessage(UTFWin::IWindow* pWindow, const UTFWin::Message& message) {
+
+}
+
 void AddReplacerMusic::OnShopperAccept(const ResourceKey& selection) {
 
 	
